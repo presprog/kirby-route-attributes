@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'PresProg\\AttributeRouting\\' => array($baseDir . '/src'),
     'Kirby\\' => array($vendorDir . '/getkirby/composer-installer/src'),
 );

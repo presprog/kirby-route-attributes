@@ -4,9 +4,13 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit26198e21236039aeb86b9934b80cf4dd
+class ComposerStaticInitb2956a046c631021d06377a1f39eb914
 {
     public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'PresProg\\AttributeRouting\\' => 26,
+        ),
         'K' => 
         array (
             'Kirby\\' => 6,
@@ -14,6 +18,10 @@ class ComposerStaticInit26198e21236039aeb86b9934b80cf4dd
     );
 
     public static $prefixDirsPsr4 = array (
+        'PresProg\\AttributeRouting\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
         'Kirby\\' => 
         array (
             0 => __DIR__ . '/..' . '/getkirby/composer-installer/src',
@@ -27,9 +35,9 @@ class ComposerStaticInit26198e21236039aeb86b9934b80cf4dd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit26198e21236039aeb86b9934b80cf4dd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit26198e21236039aeb86b9934b80cf4dd::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit26198e21236039aeb86b9934b80cf4dd::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb2956a046c631021d06377a1f39eb914::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb2956a046c631021d06377a1f39eb914::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb2956a046c631021d06377a1f39eb914::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -8,7 +8,9 @@
     }
   ],
   "autoload": {
-    "PresProg\\AttributeRouting\\": "src/"
+    "psr-4": {
+      "PresProg\\AttributeRouting\\": "src/"
+    }
   },
   "require": {
     "getkirby/composer-installer": "^1.2"
