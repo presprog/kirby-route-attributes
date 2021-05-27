@@ -1,0 +1,19 @@
+{
+  "name": "presprog/kirby-attribute-routing",
+  "type": "kirby-plugin",
+  "authors": [
+    {
+      "name": "Benedict Massolle",
+      "email": "bm@presentprogressive.de"
+    }
+  ],
+  "autoload": {
+    "PresProg\\AttributeRouting\\": "src/"
+  },
+  "require": {
+    "getkirby/composer-installer": "^1.2"
+  },
+  "extra": {
+    "installer-name": "attribute-routing"
+  }
+}
