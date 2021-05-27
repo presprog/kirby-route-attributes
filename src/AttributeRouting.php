@@ -2,13 +2,18 @@
 
 namespace PresProg\AttributeRouting;
 
+use Kirby\Toolkit\Dir;
 use PresProg\AttributeRouting\Attributes\RouteAttribute;
-use Reflection;
+use ReflectionAttribute;
+use ReflectionException;
 use ReflectionFunction;
 
 class AttributeRouting
 {
-    public static function loadRoutes()
+    /**
+     * @throws ReflectionException
+     */
+    public static function loadRoutes(): void
     {
         $routes = self::loadRoutesFromAttributes();
 
@@ -17,14 +22,27 @@ class AttributeRouting
         ]);
     }
 
-    private static function loadRoutesFromAttributes()
+    /**
+     * @return array
+     * @throws ReflectionException
+     */
+    private static function loadRoutesFromAttributes(): array
     {
-        $siteFolder = kirby()->root('site');
-        $route = require $siteFolder . '/routes/route.php';
+        $routes = [];
+        $files = Dir::files(kirby()->root('site') . '/routes', null, true);
 
-        $refl = new ReflectionFunction($route);
-        $attributes = $refl->getAttributes(RouteAttribute::class, \ReflectionAttribute::IS_INSTANCEOF);
-        var_dump($attributes[0]);
-        die();
+        foreach ($files as $file) {
+            $route = require $file;
+            $reflection = new ReflectionFunction($route);
+            $attributes = $reflection->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
+            $attribute = $attributes[0];
+
+            $routes[] = [
+                'pattern' => $attribute->getArguments()[0],
+                'action' => $route
+            ];
+        }
+
+        return $routes;
     }
 }

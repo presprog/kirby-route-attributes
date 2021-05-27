@@ -5,9 +5,9 @@ namespace PresProg\AttributeRouting\Attributes;
 use Attribute;
 
 #[Attribute(Attribute::TARGET_FUNCTION)]
-class Get extends Route
+class Post extends Route
 {
     public function __construct(string $pattern, ) {
-        parent::__construct($pattern, 'GET');
+        parent::__construct($pattern, 'POST');
     }
 }

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '3d2764ed5eeee4258dc991ce80abbbdaf9b2dec8',
+    'reference' => '1140c2bb45cf42ea3801fb281e46cdd37d60290c',
     'name' => 'presprog/kirby-attribute-routing',
   ),
   'versions' => 
@@ -27,7 +27,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '3d2764ed5eeee4258dc991ce80abbbdaf9b2dec8',
+      'reference' => '1140c2bb45cf42ea3801fb281e46cdd37d60290c',
     ),
   ),
 );
