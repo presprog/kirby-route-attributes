@@ -2,6 +2,7 @@
 
 namespace PresProg\AttributeRouting;
 
+use Kirby\Cache\Cache;
 use Kirby\Exception\InvalidArgumentException;
 use Kirby\Toolkit\Dir;
 use PresProg\AttributeRouting\Attributes\RouteAttribute;
@@ -11,30 +12,38 @@ use ReflectionFunction;
 
 class AttributeRouting
 {
-    /**
-     * @throws ReflectionException
-     * @throws InvalidArgumentException
-     */
-    public static function registerRoutes(): void
+    private Cache $cache;
+
+    public function __construct(Cache $cache)
     {
-        kirby()->extend([
-            'routes' => self::loadRoutes()
-        ]);
+        $this->cache = $cache;
     }
 
     /**
      * @throws ReflectionException
      * @throws InvalidArgumentException
      */
-    private static function loadRoutes(): array
+    public static function registerRoutes(): void
     {
-        $cache = kirby()->cache('presprog.attribute-routing');
+        $self = new self(
+            kirby()->cache('presprog.attribute-routing')
+        );
 
-        if ($cache->exists('routes')) {
-            $routeCollection = $cache->get('routes');
+        kirby()->extend([
+            'routes' => $self->loadRoutes()
+        ]);
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    private function loadRoutes(): array
+    {
+        if ($this->cache->exists('routes')) {
+            $routeCollection = $this->cache->get('routes');
         } else {
-            $routeCollection = self::loadRoutesFromFiles();
-            $cache->set('routes', $routeCollection);
+            $routeCollection = $this->loadRoutesFromFiles();
+            $this->cache->set('routes', $routeCollection);
         }
 
         foreach ($routeCollection as &$route) {
@@ -52,7 +61,7 @@ class AttributeRouting
      * @return array
      * @throws ReflectionException
      */
-    private static function loadRoutesFromFiles(): array
+    private function loadRoutesFromFiles(): array
     {
         $routes = [];
         $files = Dir::files(kirby()->root('site') . '/routes', null, true);
@@ -60,15 +69,11 @@ class AttributeRouting
         foreach ($files as $file) {
             $route = require $file;
 
-            if (!is_array($route) && !is_callable(($route))) {
-                throw new \RuntimeException(sprintf('%s must return an array or a function.', $file));
+            if (!is_callable(($route))) {
+                throw new \RuntimeException(sprintf('%s must return a callable.', $file));
             }
 
-            if (is_array($route)) {
-                $routes[] = $route;
-            } else {
-                $routes[] = self::getRouteMetaData($route, $file);
-            }
+            $routes[] = $this->getRouteMetaData($route, $file);
         }
 
         return $routes;
@@ -77,7 +82,7 @@ class AttributeRouting
     /**
      * @throws ReflectionException
      */
-    private static function getRouteMetaData(callable $route, string $file): array
+    private function getRouteMetaData(callable $route, string $file): array
     {
         $function = new ReflectionFunction($route);
         $attributes = $function->getAttributes(
