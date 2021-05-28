@@ -2,6 +2,7 @@
 
 namespace PresProg\AttributeRouting;
 
+use Exception;
 use Kirby\Cache\Cache;
 use Kirby\Exception\InvalidArgumentException;
 use Kirby\Toolkit\Dir;
@@ -9,6 +10,7 @@ use PresProg\AttributeRouting\Attributes\RouteAttribute;
 use ReflectionAttribute;
 use ReflectionException;
 use ReflectionFunction;
+use RuntimeException;
 
 class AttributeRouting
 {
@@ -70,7 +72,7 @@ class AttributeRouting
             $route = require $file;
 
             if (!is_callable(($route))) {
-                throw new \RuntimeException(sprintf('%s must return a callable.', $file));
+                throw new RuntimeException(sprintf('%s must return a callable.', $file));
             }
 
             $routes[] = $this->getRouteMetaData($route, $file);
@@ -81,6 +83,7 @@ class AttributeRouting
 
     /**
      * @throws ReflectionException
+     * @throws RuntimeException
      */
     private function getRouteMetaData(callable $route, string $file): array
     {
@@ -91,7 +94,7 @@ class AttributeRouting
         );
 
         if (empty($attributes)) {
-            return [];
+            throw new RuntimeException('Routes defined in /site/routes/*.php must have meta data added with attributes. See PresProg\AttributeRouting\Attributes for available attributes.');
         }
 
         $attribute = $attributes[0];
