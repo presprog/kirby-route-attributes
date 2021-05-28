@@ -15,10 +15,12 @@ use RuntimeException;
 class AttributeRouting
 {
     private Cache $cache;
+    private bool $debug;
 
-    public function __construct(Cache $cache)
+    public function __construct(Cache $cache, bool $debug)
     {
         $this->cache = $cache;
+        $this->debug = $debug;
     }
 
     /**
@@ -28,7 +30,8 @@ class AttributeRouting
     public static function registerRoutes(): void
     {
         $self = new self(
-            kirby()->cache('presprog.attribute-routing')
+            kirby()->cache('presprog.attribute-routing'),
+            kirby()->option('debug', false)
         );
 
         kirby()->extend([
@@ -41,11 +44,13 @@ class AttributeRouting
      */
     private function loadRoutes(): array
     {
-        if ($this->cache->exists('routes')) {
+        if (!$this->debug && $this->cache->exists('routes')) {
             $routeCollection = $this->cache->get('routes');
         } else {
             $routeCollection = $this->loadRoutesFromFiles();
-            $this->cache->set('routes', $routeCollection);
+            if (!$this->debug) {
+                $this->cache->set('routes', $routeCollection);
+            }
         }
 
         foreach ($routeCollection as &$route) {
