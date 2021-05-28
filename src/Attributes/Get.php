@@ -4,10 +4,10 @@ namespace PresProg\AttributeRouting\Attributes;
 
 use Attribute;
 
-#[Attribute(Attribute::TARGET_FUNCTION)]
+#[Attribute(Attribute::TARGET_FUNCTION | Attribute::TARGET_METHOD)]
 class Get extends Route
 {
-    public function __construct(string $pattern, ) {
+    public function __construct(string $pattern) {
         parent::__construct($pattern, 'GET');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace PresProg\AttributeRouting;
 
+use Kirby\Exception\InvalidArgumentException;
 use Kirby\Toolkit\Dir;
 use PresProg\AttributeRouting\Attributes\RouteAttribute;
 use ReflectionAttribute;
@@ -12,37 +13,89 @@ class AttributeRouting
 {
     /**
      * @throws ReflectionException
+     * @throws InvalidArgumentException
      */
-    public static function loadRoutes(): void
+    public static function registerRoutes(): void
     {
-        $routes = self::loadRoutesFromAttributes();
-
         kirby()->extend([
-            'routes' => $routes
+            'routes' => self::loadRoutes()
         ]);
+    }
+
+    /**
+     * @throws ReflectionException
+     * @throws InvalidArgumentException
+     */
+    private static function loadRoutes(): array
+    {
+        $cache = kirby()->cache('presprog.attribute-routing');
+
+        if ($cache->exists('routes')) {
+            $routeCollection = $cache->get('routes');
+        } else {
+            $routeCollection = self::loadRoutesFromFiles();
+            $cache->set('routes', $routeCollection);
+        }
+
+        foreach ($routeCollection as &$route) {
+            $action = require $route['file'];
+            $route['action'] = function () use ($action) {
+                return $action(...func_get_args());
+            };
+            unset($route['file']);
+        }
+
+        return $routeCollection;
     }
 
     /**
      * @return array
      * @throws ReflectionException
      */
-    private static function loadRoutesFromAttributes(): array
+    private static function loadRoutesFromFiles(): array
     {
         $routes = [];
         $files = Dir::files(kirby()->root('site') . '/routes', null, true);
 
         foreach ($files as $file) {
             $route = require $file;
-            $reflection = new ReflectionFunction($route);
-            $attributes = $reflection->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
-            $attribute = $attributes[0];
 
-            $routes[] = [
-                'pattern' => $attribute->getArguments()[0],
-                'action' => $route
-            ];
+            if (!is_array($route) && !is_callable(($route))) {
+                throw new \RuntimeException(sprintf('%s must return an array or a function.', $file));
+            }
+
+            if (is_array($route)) {
+                $routes[] = $route;
+            } else {
+                $routes[] = self::getRouteMetaData($route, $file);
+            }
         }
 
         return $routes;
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    private static function getRouteMetaData(callable $route, string $file): array
+    {
+        $function = new ReflectionFunction($route);
+        $attributes = $function->getAttributes(
+            RouteAttribute::class,
+            ReflectionAttribute::IS_INSTANCEOF
+        );
+
+        if (empty($attributes)) {
+            return [];
+        }
+
+        $attribute = $attributes[0];
+        $instance = $attribute->newInstance();
+
+        return [
+            'pattern' => $instance->pattern,
+            'method' => $instance->method,
+            'file' => $file,
+        ];
     }
 }

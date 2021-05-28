@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '1140c2bb45cf42ea3801fb281e46cdd37d60290c',
+    'reference' => '2b16b8885080d73088abfca408927961dcbaba0b',
     'name' => 'presprog/kirby-attribute-routing',
   ),
   'versions' => 
@@ -51,7 +51,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '1140c2bb45cf42ea3801fb281e46cdd37d60290c',
+      'reference' => '2b16b8885080d73088abfca408927961dcbaba0b',
     ),
   ),
 );
