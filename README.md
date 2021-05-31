@@ -1,6 +1,7 @@
 # Kirby routing with attributes
 
 Load routes from `site/routes` and annotate metadata with PHP 8 attributes.
+No more business logic in your config files 🎉
 
 ****
 
