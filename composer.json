@@ -1,25 +1,36 @@
 {
-  "name": "presprog/kirby-route-attributes",
-  "type": "kirby-plugin",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Benedict Massolle",
-      "email": "bm@presentprogressive.de",
-      "role": "Developer",
-      "homepage": "https://www.presentprogressive.de"
+    "name": "presprog/kirby-route-attributes",
+    "type": "kirby-plugin",
+    "license": "MIT",
+    "kewyords": [
+        "kirby",
+        "routing",
+        "attributes",
+        "annotations"
+    ],
+    "authors": [
+        {
+            "name": "Benedict Massolle",
+            "email": "bm@presentprogressive.de",
+            "role": "Developer",
+            "homepage": "https://www.presentprogressive.de"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "getkirby/composer-installer": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "PresProg\\RouteAttributes\\": "src/"
+        }
+    },
+    "extra": {
+        "installer-name": "route-attributes"
+    },
+    "support": {
+        "email": "support@presentprogressive.de",
+        "issues": "https://github.com/presprog/kirby-route-attributes/issues",
+        "source": "https://github.com/presprog/kirby-route-attributes"
     }
-  ],
-  "require": {
-    "php": "^8.0",
-    "getkirby/composer-installer": "^1.2"
-  },
-  "autoload": {
-    "psr-4": {
-      "PresProg\\RouteAttributes\\": "src/"
-    }
-  },
-  "extra": {
-    "installer-name": "route-attributes"
-  }
 }

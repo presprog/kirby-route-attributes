@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '467d812b6920c60c5f899266b2667dc86b3914a7',
+    'reference' => '92738d7209ce8b0b6597ef23aa16ae7a6c687dec',
     'name' => 'presprog/kirby-route-attributes',
   ),
   'versions' => 
@@ -27,7 +27,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '467d812b6920c60c5f899266b2667dc86b3914a7',
+      'reference' => '92738d7209ce8b0b6597ef23aa16ae7a6c687dec',
     ),
   ),
 );
