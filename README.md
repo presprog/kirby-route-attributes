@@ -49,6 +49,11 @@ return #[Route('/foo/(:all)', 'GET')] function ($all) {
 };
 ```
 
+When developing in `debug` mode, the files will always be read from disk.
+When`debug` is `false`, the loaded routes will be read once and then cached.
+Make sure to clear the plugin cache after deployment, when you have made
+changes to the routes.
+
 ****
 
 ## Installation
