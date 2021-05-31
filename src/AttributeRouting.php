@@ -2,7 +2,6 @@
 
 namespace PresProg\AttributeRouting;
 
-use Exception;
 use Kirby\Cache\Cache;
 use Kirby\Exception\InvalidArgumentException;
 use Kirby\Toolkit\Dir;

@@ -1,19 +1,22 @@
 {
   "name": "presprog/kirby-attribute-routing",
   "type": "kirby-plugin",
+  "license": "MIT",
   "authors": [
     {
       "name": "Benedict Massolle",
-      "email": "bm@presentprogressive.de"
+      "email": "bm@presentprogressive.de",
+      "role": "Developer",
+      "homepage": "https://www.presentprogressive.de"
     }
   ],
+  "require": {
+    "getkirby/composer-installer": "^1.2"
+  },
   "autoload": {
     "psr-4": {
       "PresProg\\AttributeRouting\\": "src/"
     }
-  },
-  "require": {
-    "getkirby/composer-installer": "^1.2"
   },
   "extra": {
     "installer-name": "attribute-routing"
