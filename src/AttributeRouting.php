@@ -45,15 +45,15 @@ class AttributeRouting
     private function loadRoutes(): array
     {
         if (!$this->debug && $this->cache->exists('routes')) {
-            $routeCollection = $this->cache->get('routes');
+            $routes = $this->cache->get('routes');
         } else {
-            $routeCollection = $this->loadRoutesFromFiles();
+            $routes = $this->loadRoutesFromFiles();
             if (!$this->debug) {
-                $this->cache->set('routes', $routeCollection);
+                $this->cache->set('routes', $routes);
             }
         }
 
-        foreach ($routeCollection as &$route) {
+        foreach ($routes as &$route) {
             $action = require $route['file'];
             $route['action'] = function () use ($action) {
                 return $action(...func_get_args());
@@ -61,7 +61,7 @@ class AttributeRouting
             unset($route['file']);
         }
 
-        return $routeCollection;
+        return $routes;
     }
 
     /**
