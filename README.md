@@ -6,7 +6,7 @@ Load routes from `site/routes` and annotate metadata with PHP 8 attributes.
 
 ## Usage
 
-After [installing](#Installation), create a new folder `site\plugins\routes`. Then
+After [installing](#Installation), create a new folder `site/routes`. Then
 create a new file for each route you want to add. The filename does not matter,
 but every file must return a function, that is annotated with the provided
 PHP 8 attributes:
@@ -58,6 +58,12 @@ changes to the routes.
 
 ## Installation
 
+### Composer
+
+```
+composer require presprog/kirby-route-attributes
+```
+
 ### Download
 
 Download and copy this repository to `/site/plugins/route-attributes`.
@@ -66,12 +72,6 @@ Download and copy this repository to `/site/plugins/route-attributes`.
 
 ```
 git submodule add https://github.com/presprog/kirby-route-attributes.git site/plugins/route-attributes
-```
-
-### Composer
-
-```
-composer require presprog/kirby-route-attributes
 ```
 
 ## License
