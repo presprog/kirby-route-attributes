@@ -1,21 +1,22 @@
-# Kirby routing with annotations
+# Kirby routing with attributes
 
-Load routes from `site/routes` and annotate meta data with PHP 8 attributes.
+Load routes from `site/routes` and annotate metadata with PHP 8 attributes.
 
 ****
 
 ## Usage
 
-After [installing](#Installation), first create a new folder `site\plugins\routes`. Secondly, create a new file for
-each route. The name does not matter, but every file must return a function,
-that is annotated with the provided PHP 8 attributes:
+After [installing](#Installation), create a new folder `site\plugins\routes`. Then
+create a new file for each route you want to add. The filename does not matter,
+but every file must return a function, that is annotated with the provided
+PHP 8 attributes:
 
 ```php
-// site/plugins/my-awesome-route.php
+// site/routes/my-awesome-route.php
 <?php
 
 use Kirby\Http\Response;
-use PresProg\AttributeRouting\Attributes\Get;
+use PresProg\RouteAttributes\Attributes\Get;
 
 return #[Get('/foo/(:all)')] function ($all) {
     return new Response("<h1>$all</h1>", null, 200);
@@ -24,24 +25,24 @@ return #[Get('/foo/(:all)')] function ($all) {
 
 The following attributes are included:
 
-* [Get](https://github.com/presprog/kirby-attribute-routing/blob/master/src/Attributes/Get.php)
-* [Head](https://github.com/presprog/kirby-attribute-routing/blob/master/src/Attributes/Head.php)
-* [Options](https://github.com/presprog/kirby-attribute-routing/blob/master/src/Attributes/Options.php)
-* [Post](https://github.com/presprog/kirby-attribute-routing/blob/master/src/Attributes/Post.php)
-* [Patch](https://github.com/presprog/kirby-attribute-routing/blob/master/src/Attributes/Patch.php)
-* [Delete](https://github.com/presprog/kirby-attribute-routing/blob/master/src/Attributes/Delete.php)
-* [Connect](https://github.com/presprog/kirby-attribute-routing/blob/master/src/Attributes/Connect.php)
-* [Trace](https://github.com/presprog/kirby-attribute-routing/blob/master/src/Attributes/Trace.php)
+* [Get](https://github.com/presprog/kirby-route-attributes/blob/master/src/Attributes/Get.php)
+* [Head](https://github.com/presprog/kirby-route-attributes/blob/master/src/Attributes/Head.php)
+* [Options](https://github.com/presprog/kirby-route-attributes/blob/master/src/Attributes/Options.php)
+* [Post](https://github.com/presprog/kirby-route-attributes/blob/master/src/Attributes/Post.php)
+* [Patch](https://github.com/presprog/kirby-route-attributes/blob/master/src/Attributes/Patch.php)
+* [Delete](https://github.com/presprog/kirby-route-attributes/blob/master/src/Attributes/Delete.php)
+* [Connect](https://github.com/presprog/kirby-route-attributes/blob/master/src/Attributes/Connect.php)
+* [Trace](https://github.com/presprog/kirby-route-attributes/blob/master/src/Attributes/Trace.php)
 
 All these attributes share the same base `Route` attribute, which you also may use directly too:
-* [Route](https://github.com/presprog/kirby-attribute-routing/blob/master/src/Attributes/Route.php)
+* [Route](https://github.com/presprog/kirby-route-attributes/blob/master/src/Attributes/Route.php)
 
 ```php
-// site/plugins/my-awesome-route.php
+// site/routes/my-awesome-route.php
 <?php
 
 use Kirby\Http\Response;
-use PresProg\AttributeRouting\Attributes\Route;
+use PresProg\RouteAttributes\Attributes\Route;
 
 return #[Route('/foo/(:all)', 'GET')] function ($all) {
     return new Response("<h1>$all</h1>", null, 200);
@@ -54,18 +55,18 @@ return #[Route('/foo/(:all)', 'GET')] function ($all) {
 
 ### Download
 
-Download and copy this repository to `/site/plugins/attribute-routing`.
+Download and copy this repository to `/site/plugins/route-attributes`.
 
 ### Git submodule
 
 ```
-git submodule add https://github.com/presprog/kirby-attribute-routing.git site/plugins/attribute-routing
+git submodule add https://github.com/presprog/kirby-route-attributes.git site/plugins/route-attributes
 ```
 
 ### Composer
 
 ```
-composer require presprog/kirby-attribute-routing
+composer require presprog/kirby-route-attributes
 ```
 
 ## License
@@ -74,4 +75,4 @@ MIT
 
 ## Credits
 
-- [Your Name](https://github.com/ghost)
+**Designed and built with ☕ and ❤ by [Present Progressive](https://www.presentprogressive.de)**

@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
 use Kirby\Cms\App;
-use PresProg\AttributeRouting\AttributeRouting;
+use PresProg\RouteAttributes\RouteAttributes;
 
-App::plugin('presprog/attribute-routing', [
+App::plugin('presprog/route-attributes', [
     'options' => [
         'cache' => true,
     ],
     'hooks' => [
         'system.loadPlugins:after' => function () {
-            AttributeRouting::registerRoutes();
+            RouteAttributes::registerRoutes();
         }
     ]
 ]);

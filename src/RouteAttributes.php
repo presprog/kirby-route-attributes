@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace PresProg\AttributeRouting;
+namespace PresProg\RouteAttributes;
 
 use Kirby\Cache\Cache;
 use Kirby\Exception\InvalidArgumentException;
 use Kirby\Toolkit\Dir;
-use PresProg\AttributeRouting\Attributes\RouteAttribute;
+use PresProg\RouteAttributes\Attributes\RouteAttribute;
 use ReflectionAttribute;
 use ReflectionException;
 use ReflectionFunction;
 use RuntimeException;
 
-class AttributeRouting
+class RouteAttributes
 {
     private Cache $cache;
     private bool $debug;
@@ -29,7 +29,7 @@ class AttributeRouting
     public static function registerRoutes(): void
     {
         $self = new self(
-            kirby()->cache('presprog.attribute-routing'),
+            kirby()->cache('presprog.route-attributes'),
             kirby()->option('debug', false)
         );
 
@@ -98,7 +98,7 @@ class AttributeRouting
         );
 
         if (empty($attributes)) {
-            throw new RuntimeException('Routes defined in /site/routes/*.php must have meta data added with attributes. See PresProg\AttributeRouting\Attributes for available attributes.');
+            throw new RuntimeException('Routes defined in /site/routes/*.php must be annotated with attributes. See PresProg\RouteAttributes\Attributes for available attributes.');
         }
 
         $attribute = $attributes[0];

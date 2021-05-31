@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace PresProg\AttributeRouting\Attributes;
+namespace PresProg\RouteAttributes\Attributes;
 
 interface RouteAttribute
 {

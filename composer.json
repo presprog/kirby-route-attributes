@@ -1,5 +1,5 @@
 {
-  "name": "presprog/kirby-attribute-routing",
+  "name": "presprog/kirby-route-attributes",
   "type": "kirby-plugin",
   "license": "MIT",
   "authors": [
@@ -15,10 +15,10 @@
   },
   "autoload": {
     "psr-4": {
-      "PresProg\\AttributeRouting\\": "src/"
+      "PresProg\\RouteAttributes\\": "src/"
     }
   },
   "extra": {
-    "installer-name": "attribute-routing"
+    "installer-name": "route-attributes"
   }
 }
